@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+  <title>VCard — cache debug</title>
+  <link rel="stylesheet" href="sys/vcard-debug-page.css">
+</head>
+<body>
+  <main class="vcard-cache-debug">
+    <header class="vcard-cache-debug__header">
+      <p><a href="index.html">← VCard</a></p>
+      <h1>Кэш медиа VCard</h1>
+      <p id="vcard-debug-build" class="vcard-cache-debug__build"></p>
+      <p class="vcard-cache-debug__note">
+        Здесь показан управляемый кэш VCard. Он сохраняет полный файл, поэтому
+        MP3 и видео проверяются так же точно, как изображения; сеть не используется.
+      </p>
+      <div class="vcard-cache-debug__actions">
+        <button type="button" id="vcard-debug-check">Проверить локальный кэш</button>
+        <button type="button" id="vcard-debug-snapshot" disabled>Сохранить снимок</button>
+      </div>
+      <p id="vcard-debug-status" class="vcard-cache-debug__status" aria-live="polite"></p>
+      <p id="vcard-debug-session" class="vcard-cache-debug__status"></p>
+      <dl id="vcard-debug-summary" class="vcard-cache-debug__summary"></dl>
+    </header>
+
+    <div class="vcard-cache-debug__table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Источник</th>
+            <th>Тип</th>
+            <th>Файл</th>
+            <th>Размер</th>
+            <th>Сейчас</th>
+            <th>В прошлом снимке</th>
+          </tr>
+        </thead>
+        <tbody id="vcard-debug-resources"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <script id="vcard-debug-manifest" type="application/json">{"generatedAt":"2026-08-19T17:43:04","resources":[{"url":"usr/v_bkimg/Fibrous%20paper.webp?v=d23940f295ed","path":"usr/v_bkimg/Fibrous paper.webp","kind":"image","scope":"built-in","size":294202},{"url":"usr/v_bkimg/Fine%20canvas.webp?v=cdf47f65c9d8","path":"usr/v_bkimg/Fine canvas.webp","kind":"image","scope":"built-in","size":279026},{"url":"usr/v_bkimg/Fine%20paper.webp?v=76517cff1a88","path":"usr/v_bkimg/Fine paper.webp","kind":"image","scope":"built-in","size":329474},{"url":"usr/v_bkimg/Rosewood%20BW.webp?v=fbb0a780e1be","path":"usr/v_bkimg/Rosewood BW.webp","kind":"image","scope":"built-in","size":75838},{"url":"usr/v_bkimg/Rosewood.webp?v=6b5258408493","path":"usr/v_bkimg/Rosewood.webp","kind":"image","scope":"built-in","size":99434},{"url":"usr/v_bkimg/Rough%20canvas.webp?v=64a682a41828","path":"usr/v_bkimg/Rough canvas.webp","kind":"image","scope":"built-in","size":384928},{"url":"usr/v_bkimg/Rough%20laid%20paper.webp?v=25d088596f9e","path":"usr/v_bkimg/Rough laid paper.webp","kind":"image","scope":"built-in","size":314770},{"url":"usr/v_bkimg/Watercolor%20cold%20press.webp?v=f1ffbf21ec31","path":"usr/v_bkimg/Watercolor cold press.webp","kind":"image","scope":"built-in","size":365884},{"url":"usr/v_bkimg/Watercolor%20paper.webp?v=d9fad794b7aa","path":"usr/v_bkimg/Watercolor paper.webp","kind":"image","scope":"built-in","size":278804},{"url":"usr/v_bkvid/smoke-loop.mp4?v=99b48e30a783","path":"usr/v_bkvid/smoke-loop.mp4","kind":"video","scope":"built-in","size":713205},{"url":"usr/v_end/1.mp4?v=47e8a436955b","path":"usr/v_end/1.mp4","kind":"video","scope":"built-in","size":1355982},{"url":"usr/v_fin1/cass.mp4?v=9fe82de9f9cf","path":"usr/v_fin1/cass.mp4","kind":"video","scope":"built-in","size":432649},{"url":"usr/v_fin2/flag.mp4?v=e2e8d411aae1","path":"usr/v_fin2/flag.mp4","kind":"video","scope":"built-in","size":573888},{"url":"usr/v_hi/m01.png?v=7ea923abe012","path":"usr/v_hi/m01.png","kind":"image","scope":"built-in","size":27057},{"url":"usr/v_hi/m02.png?v=0a89e60b0f32","path":"usr/v_hi/m02.png","kind":"image","scope":"built-in","size":27699},{"url":"usr/v_hi/m03.png?v=d3c98409ca63","path":"usr/v_hi/m03.png","kind":"image","scope":"built-in","size":36008},{"url":"usr/v_hi/m04.png?v=d7cf599d7b55","path":"usr/v_hi/m04.png","kind":"image","scope":"built-in","size":27569},{"url":"usr/v_hi/m05.png?v=f8dca820d832","path":"usr/v_hi/m05.png","kind":"image","scope":"built-in","size":24789},{"url":"usr/v_hi/m06.png?v=d83ce7cd234e","path":"usr/v_hi/m06.png","kind":"image","scope":"built-in","size":33810},{"url":"usr/v_hi/p01.jpg?v=bbe16a56bc7c","path":"usr/v_hi/p01.jpg","kind":"image","scope":"built-in","size":55306},{"url":"usr/v_hi/p02.jpg?v=0fe5e16f9b6d","path":"usr/v_hi/p02.jpg","kind":"image","scope":"built-in","size":49804},{"url":"usr/v_hi/p03.jpg?v=a0e7bf1338b8","path":"usr/v_hi/p03.jpg","kind":"image","scope":"built-in","size":62924},{"url":"usr/v_hi/p04.jpg?v=e8e144dbe3c5","path":"usr/v_hi/p04.jpg","kind":"image","scope":"built-in","size":46368},{"url":"usr/v_hi/p05.jpg?v=df607f58b192","path":"usr/v_hi/p05.jpg","kind":"image","scope":"built-in","size":71363},{"url":"usr/v_hi/p06.jpg?v=911e9adc7b4a","path":"usr/v_hi/p06.jpg","kind":"image","scope":"built-in","size":58367},{"url":"usr/ysz/1.jpg?v=ad4d2dc7aa74","path":"usr/ysz/1.jpg","kind":"image","scope":"built-in","size":257366}]}</script>
+  <script src="sys/vcard-debug-page.js" defer></script>
+</body>
+</html>

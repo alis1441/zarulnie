@@ -1,0 +1,2358 @@
+.emoji-tint {
+  display: inline-block;
+  font-family: "EmojiFont", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
+  font-style: normal;
+  font-weight: normal;
+}
+
+:root[data-color-preset="night"] {
+  --vc-author-comment: var(--vc-muted);
+}
+
+:root[data-color-preset="newspaper"] {
+  --vc-page: black;
+  --vc-text: black;
+  --vc-muted: #2b2b2b;
+  --vc-acc: black;
+}
+
+:root[data-color-preset="newspaper"] .vc-page-side-fade {
+  display: none;
+}
+
+:root[data-color-preset="night"] body::after,
+:root[data-color-preset="mono"] body::after,
+:root[data-color-preset="duo"] body::after {
+  filter:
+    contrast(var(--vc-page-background-contrast, 1))
+    brightness(var(--vc-page-background-dark-brightness, 1));
+}
+
+:root[data-color-preset="mono"][data-page-background-color="mono"] body::after,
+:root[data-color-preset="duo"][data-page-background-color="mono"] body::after {
+  filter:
+    grayscale(1)
+    url("#vc-page-background-video-tint-filter")
+    contrast(var(--vc-page-background-contrast, 1))
+    brightness(var(--vc-page-background-dark-brightness, 1));
+}
+
+:root[data-color-preset="newspaper"] body::after {
+  filter:
+    invert(1)
+    grayscale(1)
+    contrast(var(--vc-page-background-newspaper-contrast, 1))
+    brightness(var(--vc-page-background-brightness, 1));
+}
+
+:root[data-color-preset="newspaper"][data-background-mode="smoke"]
+  .vcard-page-background-video {
+  mix-blend-mode: multiply;
+  filter:
+    invert(1)
+    grayscale(1)
+    brightness(var(--vc-page-background-video-newspaper-brightness, 0.82))
+    contrast(var(--vc-page-background-video-contrast, 1.05));
+}
+
+:root[data-color-scheme="white"] {
+  --vc-win: silver;
+  --vc-page: black !important;
+  --vc-text: black !important;
+  --vc-muted: #2b2b2b;
+  --vc-readable-outline: white;
+  --vc-readable-outline-inverse: black;
+  --vc-visualization-opacity: 0%;
+}
+
+:root[data-color-scheme="white"][data-vis-bri="1"] {
+  --vc-visualization-opacity: 10%;
+}
+
+:root[data-color-scheme="white"][data-vis-bri="2"] {
+  --vc-visualization-opacity: 20%;
+}
+
+:root[data-color-scheme="white"][data-vis-bri="3"] {
+  --vc-visualization-opacity: 33%;
+}
+
+:root[data-color-scheme="white"][data-vis-bri="4"] {
+  --vc-visualization-opacity: 50%;
+}
+
+:root[data-color-scheme="white"][data-vis-bri="5"] {
+  --vc-visualization-opacity: 65%;
+}
+
+:root[data-color-scheme="white"] .vcard-page-background-video {
+  filter:
+    invert(1)
+    contrast(var(--vc-page-background-video-contrast, 1.05))
+    brightness(var(--vc-page-background-video-brightness, 0.68));
+}
+
+:root[data-color-scheme="white"] .song-portal-stage {
+  padding-block: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+:root[data-color-scheme="white"] .song-portal-stage::before {
+  display: none;
+}
+
+/* ===== DESIGN STATES / PAGE EFFECTS ===== */
+
+:root[data-author-comment-muted="on"] {
+  --vc-author-comment: color-mix(
+    in srgb,
+    var(--vc-text) 72%,
+    var(--vc-win)
+  );
+}
+
+:root[data-accent="on"] {
+  --vc-author-comment: var(--vc-acc);
+}
+
+.type-body,
+.song__preview-text.block-full,
+.song__track-verse {
+  color: var(--vc-text);
+  paint-order: stroke fill;
+}
+
+.type-title,
+.song__item,
+.song__item-text {
+  color: var(--vc-text);
+  paint-order: stroke fill;
+}
+
+.type-subtitle,
+.author-com,
+.song__text-year,
+[ids="soc-links"] a,
+.tabs__item,
+.song__video-link,
+.footer,
+.footer a {
+  color: var(--vc-muted);
+  paint-order: stroke fill;
+}
+
+a,
+a:visited {
+  color: var(--vc-text);
+  text-decoration: none;
+  background-color: transparent;
+}
+
+:is([ids="soc-links"] a, .tabs__item, .song__video-link, .footer a) {
+  color: var(--vc-text);
+}
+
+a:is(:active, .is-active) {
+  color: var(--vc-win);
+  background-color: var(--vc-text);
+  -webkit-text-stroke-color: var(--vc-readable-outline-inverse, var(--vc-text));
+  text-decoration: none;
+}
+
+a:not(.is-active):is(:hover, :focus-visible) {
+  color: var(--vc-win);
+  background-color: var(--vc-text);
+  -webkit-text-stroke-color: var(--vc-readable-outline-inverse, var(--vc-text));
+  outline: none;
+}
+
+html {
+  background: var(--vc-win);
+}
+
+body {
+  color: var(--vc-muted);
+  -webkit-text-stroke: 1px black;
+  paint-order: stroke fill;
+  text-shadow: 1px 1px 1px black;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  pointer-events: none;
+  background-color: transparent;
+  background-image: var(--vc-page-background-image, none);
+  background-position: center;
+  background-repeat: repeat;
+  background-size: 1024px 1024px;
+  background-blend-mode: normal;
+  opacity: var(--vc-page-background-opacity, 0%);
+  filter:
+    contrast(var(--vc-page-background-contrast, 1))
+    brightness(var(--vc-page-background-brightness, 1));
+}
+
+.vc-page-side-fade {
+  --vc-full-half-width: calc(
+    (var(--content-max-width) - var(--page-inline-padding) * 2)
+      * (var(--block-small-width) / 100%) / 2
+  );
+  --vc-side-fade-edge: max(
+    var(--page-inline-padding),
+    calc(50vw - var(--vc-full-half-width))
+  );
+  --vc-side-fade-eighth: calc(var(--vc-side-fade-edge) / 8);
+  --vc-side-fade-quarter: calc(var(--vc-side-fade-edge) / 4);
+  --vc-side-fade-half: calc(var(--vc-side-fade-edge) / 2);
+  --vc-side-fade-inner: calc(var(--vc-side-fade-edge) - var(--vc-side-fade-eighth));
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to right,
+    rgb(0 0 0 / 96%) 0,
+    rgb(0 0 0 / 88%) var(--vc-side-fade-eighth),
+    rgb(0 0 0 / 64%) var(--vc-side-fade-quarter),
+    rgb(0 0 0 / 32%) var(--vc-side-fade-half),
+    rgb(0 0 0 / 7%) var(--vc-side-fade-inner),
+    transparent var(--vc-side-fade-edge),
+    transparent calc(100% - var(--vc-side-fade-edge)),
+    rgb(0 0 0 / 7%) calc(100% - var(--vc-side-fade-inner)),
+    rgb(0 0 0 / 32%) calc(100% - var(--vc-side-fade-half)),
+    rgb(0 0 0 / 64%) calc(100% - var(--vc-side-fade-quarter)),
+    rgb(0 0 0 / 88%) calc(100% - var(--vc-side-fade-eighth)),
+    rgb(0 0 0 / 96%) 100%
+  );
+}
+
+:root[data-vis-bri="0"] body::after,
+:root:is([data-background-mode="graph1"], [data-background-mode="graph2"], [data-background-mode="smoke"]) body::after {
+  display: none;
+}
+
+:root[data-vis-bri="0"] .vc-page-side-fade {
+  display: none;
+}
+
+.vcard-page-background-video {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  opacity: var(--vc-page-background-video-opacity, 0%);
+  mix-blend-mode: screen;
+  filter:
+    url("#vc-page-background-video-tint-filter")
+    contrast(var(--vc-page-background-video-contrast, 1.05))
+    brightness(var(--vc-page-background-video-brightness, 0.68))
+    saturate(var(--vc-page-background-video-saturation, 0.85));
+}
+
+.vcard-page-background-video[hidden] {
+  display: none;
+}
+
+.author-com {
+  color: var(--vc-author-comment);
+}
+
+.song__emoji,
+.emoji-tint {
+  color: var(--vc-text);
+  filter: brightness(1.5) url("#vc-song-emoji-tint");
+  -webkit-text-stroke: 2px var(--vc-text);
+}
+
+.song__emoji {
+  text-decoration: none;
+  text-shadow: none;
+  paint-order: stroke fill;
+}
+
+.vc-text,
+.vc-acc {
+  color: var(--vc-text);
+}
+
+.vc-inv,
+.vc-acc-inv {
+  color: var(--vc-win);
+  background: var(--vc-text);
+  -webkit-text-stroke-color: var(--vc-readable-outline-inverse, var(--vc-text));
+}
+
+/* Section suns use the same three-step glow as the daily image frame. */
+[ids="sun"] h1 {
+  position: relative;
+  isolation: isolate;
+  color: var(--vc-text);
+  text-shadow:
+    0 0 8px var(--vc-text),
+    0 0 20px var(--vc-text),
+    0 0 42px var(--vc-text),
+    0 0 76px var(--vc-text);
+  box-shadow: none;
+  filter: none;
+}
+
+[ids="sun"] h1::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: -1;
+  width: 1.4em;
+  height: 1.4em;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--vc-text) 92%, transparent) 0%,
+    color-mix(in srgb, var(--vc-text) 62%, transparent) 30%,
+    color-mix(in srgb, var(--vc-text) 18%, transparent) 64%,
+    transparent 100%
+  );
+  filter: blur(7px);
+}
+
+.song-media iframe {
+  border: 0;
+  background: var(--vc-win);
+}
+
+.list-image {
+  border: 0;
+}
+
+.song__preview-image {
+  border: 0;
+  background: var(--vc-win);
+  cursor: default;
+}
+
+.song__item {
+  appearance: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.dev-com[hidden],
+.song__preview[hidden],
+.song__audio[hidden],
+.song__audio:not([src]),
+.song__audio[src=""],
+.song__audio[src$="/"] {
+  display: none !important;
+}
+
+.song__preview.is-visible {
+  max-height: 10000px;
+  overflow: visible;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.song__item-text {
+  border: 0;
+  background-color: transparent;
+  box-shadow: none;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  text-decoration: none;
+}
+
+.song__text-year {
+  cursor: pointer;
+}
+
+.song__item.is-active .song__item-text {
+  color: var(--vc-win);
+  background-color: var(--vc-text);
+  -webkit-text-stroke: 0 transparent;
+  text-shadow: none;
+  text-decoration: none;
+}
+
+.song__item:is(:hover, :focus-visible) .song__item-text,
+.song__text-year:is(:hover, :focus-visible) .song__item-text {
+  color: var(--vc-win);
+  background-color: var(--vc-text);
+  -webkit-text-stroke-color: var(--vc-readable-outline-inverse, var(--vc-text));
+  outline: none;
+}
+
+.song__preview {
+  cursor: default;
+  -webkit-tap-highlight-color: transparent;
+}
+
+:root[data-images-visible="off"] :is(.image-vibeframe, .song-vibeframe) {
+  display: none !important;
+}
+
+.tabs__item {
+  cursor: pointer;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+.tabs__label,
+.tabs__item:is(:active, .is-active) .tabs__label,
+.tabs__item:not(.is-active):is(:hover, :focus-visible) .tabs__label {
+  text-decoration: none;
+}
+
+.tabs__item:not(.is-active):is(:hover, :focus-visible) {
+  color: var(--vc-win);
+  background-color: var(--vc-text);
+  -webkit-text-stroke-color: var(--vc-readable-outline-inverse, var(--vc-text));
+  border-color: var(--vc-text);
+  outline: none;
+}
+
+.tabs__item:is(:active, .is-active) {
+  color: var(--vc-win);
+  background-color: var(--vc-text);
+  -webkit-text-stroke: 0 transparent;
+  text-shadow: none;
+  border-color: var(--vc-text);
+  text-decoration: none;
+}
+
+:root[data-vis-bri="1"] {
+  --vc-visualization-opacity: 18%;
+  --vc-page-background-opacity: 20%;
+  --vc-page-background-video-opacity: 18%;
+  --vc-page-background-video-contrast: 1.06;
+  --vc-page-background-video-brightness: 0.76;
+  --vc-page-background-video-saturation: 0.92;
+}
+
+:root[data-vis-bri="2"] {
+  --vc-visualization-opacity: 34%;
+  --vc-page-background-opacity: 36%;
+  --vc-page-background-dark-brightness: 1.08;
+  --vc-page-background-newspaper-contrast: 1.08;
+  --vc-page-background-video-opacity: 32%;
+  --vc-page-background-video-contrast: 1.14;
+  --vc-page-background-video-brightness: 0.84;
+  --vc-page-background-video-saturation: 0.95;
+}
+
+:root[data-vis-bri="3"] {
+  --vc-visualization-opacity: 52%;
+  --vc-page-background-opacity: 54%;
+  --vc-page-background-dark-brightness: 1.22;
+  --vc-page-background-newspaper-contrast: 1.22;
+  --vc-page-background-video-opacity: 50%;
+  --vc-page-background-video-contrast: 1.28;
+  --vc-page-background-video-brightness: 0.96;
+  --vc-page-background-video-saturation: 1;
+}
+
+:root[data-vis-bri="4"] {
+  --vc-visualization-opacity: 76%;
+  --vc-page-background-opacity: 74%;
+  --vc-page-background-dark-brightness: 1.48;
+  --vc-page-background-newspaper-contrast: 1.48;
+  --vc-page-background-video-opacity: 72%;
+  --vc-page-background-video-contrast: 1.5;
+  --vc-page-background-video-brightness: 1.12;
+  --vc-page-background-video-saturation: 1.07;
+}
+
+:root[data-vis-bri="5"] {
+  --vc-visualization-opacity: 100%;
+  --vc-visualization-brightness: 1.12;
+  --vc-page-background-opacity: 100%;
+  --vc-page-background-dark-brightness: 1.85;
+  --vc-page-background-newspaper-contrast: 1.85;
+  --vc-page-background-video-opacity: 92%;
+  --vc-page-background-video-contrast: 1.75;
+  --vc-page-background-video-brightness: 1.34;
+  --vc-page-background-video-saturation: 1.14;
+}
+
+@media (max-width: 700px) {
+  :root {
+    --vc-visualization-opacity: 0%;
+  }
+
+  :root[data-vis-bri="1"] { --vc-visualization-opacity: 18%; }
+  :root[data-vis-bri="2"] { --vc-visualization-opacity: 36%; }
+  :root[data-vis-bri="3"] { --vc-visualization-opacity: 54%; }
+  :root[data-vis-bri="4"] { --vc-visualization-opacity: 78%; }
+  :root[data-vis-bri="5"] { --vc-visualization-opacity: 100%; }
+  :root[data-color-scheme="white"] { --vc-visualization-opacity: 0%; }
+  :root[data-color-scheme="white"][data-vis-bri="1"] { --vc-visualization-opacity: 10%; }
+  :root[data-color-scheme="white"][data-vis-bri="2"] { --vc-visualization-opacity: 22%; }
+  :root[data-color-scheme="white"][data-vis-bri="3"] { --vc-visualization-opacity: 36%; }
+  :root[data-color-scheme="white"][data-vis-bri="4"] { --vc-visualization-opacity: 54%; }
+  :root[data-color-scheme="white"][data-vis-bri="5"] { --vc-visualization-opacity: 68%; }
+}
+
+.page-image,
+.iod-image {
+  cursor: default;
+}
+
+.song__preview-image[data-can-zoom="true"] {
+  cursor: zoom-in;
+}
+
+.page-image[data-zoom-next="out"],
+.page-image.is-fullscreen,
+.song__preview-image.is-fullscreen {
+  cursor: zoom-out;
+}
+
+.iod-image,
+.iod-video,
+.page-image.is-fullscreen,
+.song__preview-image.is-fullscreen,
+.image-vibeframe.has-fullscreen-image,
+.song-vibeframe.has-fullscreen-image {
+  box-shadow: none;
+}
+
+.iod-video {
+  filter: grayscale(1) url("#vc-text-tint");
+}
+
+.page-image.is-fullscreen,
+.song__preview-image.is-fullscreen {
+  background: var(--vc-win);
+}
+
+.vc-debug-ruler {
+  display: none;
+}
+
+.vcard-settings-dialog__content .vcard-settings a {
+  color: var(--vc-muted);
+}
+
+:root:not([data-palette-ready="on"]) img:is(
+  .page-image,
+  .iod-image,
+  .song__preview-image,
+  .list-image,
+  [image-color]
+) {
+  visibility: hidden;
+}
+
+:root:not([data-palette-ready="on"]) video.iod-video {
+  visibility: hidden;
+}
+
+:root[data-color-scheme="white"] video.iod-video {
+  filter: grayscale(1) !important;
+}
+
+img[data-image-effect="night"]:not(.is-fullscreen) {
+  filter: grayscale(1) contrast(180%) !important;
+}
+
+img[data-image-effect="gray"]:not(.is-fullscreen) {
+  filter: grayscale(1) !important;
+}
+
+:root[data-color-preset="mono"]
+  img[data-image-effect="gray"]:not(.is-fullscreen) {
+  filter: grayscale(1) url("#vc-text-tint") !important;
+}
+
+img[data-image-effect="newspaper"]:not(.is-fullscreen) {
+  filter: grayscale(1) !important;
+  mix-blend-mode: normal;
+}
+
+img[data-image-effect="mono"]:not(.is-fullscreen) {
+  filter: grayscale(1) contrast(180%) url("#vc-text-tint") !important;
+}
+
+:root[data-color-scheme="white"] img[data-image-effect="mono"]:not(.is-fullscreen) {
+  filter: grayscale(1) contrast(180%) !important;
+}
+
+img[data-image-effect="color-tint"]:not(.is-fullscreen) {
+  filter: grayscale(1) url("#vc-text-tint") !important;
+}
+
+:root[data-color-scheme="white"] img[data-image-effect="color-tint"]:not(.is-fullscreen) {
+  filter: grayscale(1) !important;
+}
+
+img[data-image-effect="mono-inverse"]:not(.is-fullscreen) {
+  filter: grayscale(1) contrast(180%) invert(1) !important;
+  mix-blend-mode: multiply;
+}
+
+img:is([data-image-effect="duo"], [data-image-effect="original"]),
+img.is-fullscreen {
+  filter: none !important;
+}
+
+.image-vibeframe,
+.song-vibeframe {
+  /* A frame is a self-contained portal, never a floated page block.  Its
+     animated children are layered inside, so they cannot reflow lyrics. */
+  float: none;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  border: 0;
+  background: var(--vc-win);
+  box-shadow: none;
+  line-height: 0;
+}
+
+.image-vibeframe[frame],
+.song-vibeframe[frame] {
+  border: var(--ui-line-width) solid var(--ui-line-color);
+}
+
+.iod-frame:is([frame], .frame-border) {
+  border-color: var(--vc-text);
+}
+
+
+.image-vibeframe.block-small {
+  width: fit-content;
+  max-width: min(100%, var(--block-small-width));
+}
+
+.image-vibeframe.block-mid {
+  width: fit-content;
+  max-width: min(100%, var(--block-mid-width));
+}
+
+.frame-border {
+  border: var(--ui-line-width) solid var(--ui-line-color);
+}
+
+/* Shared large portal/frame shadow, scoped to its three consumers. */
+.frame-shadow,
+.shadow-large,
+.song-vibeframe:not(.shadow-off):not(.has-fullscreen-image) {
+  --frame-shadow-large:
+    0 0 12px 8px color-mix(in srgb, black 82%, transparent),
+    0 0 28px 12px color-mix(in srgb, black 68%, transparent),
+    0 0 50px 16px color-mix(in srgb, black 48%, transparent);
+}
+
+.frame-shadow {
+  box-shadow: var(--frame-shadow-large);
+}
+
+.frame-glow {
+  box-shadow:
+    0 0 10px 3px color-mix(in srgb, var(--vc-text) 72%, transparent),
+    0 0 24px 7px color-mix(in srgb, var(--vc-text) 42%, transparent),
+    0 0 42px 12px color-mix(in srgb, var(--vc-text) 20%, transparent);
+}
+
+.shadow-off {
+  box-shadow: none;
+}
+
+.shadow-mid {
+  box-shadow:
+    0 0 13px 5px color-mix(in srgb, black 45%, transparent),
+    0 0 23px 5px color-mix(in srgb, black 35%, transparent),
+    0 0 33px 5px color-mix(in srgb, black 25%, transparent);
+}
+
+.shadow-large {
+  box-shadow: var(--frame-shadow-large);
+}
+
+.image-vibeframe[hidden],
+.song-vibeframe[hidden] {
+  display: none !important;
+}
+
+.image-vibeframe > img:not(.is-fullscreen),
+.song-vibeframe > img:not(.is-fullscreen),
+.image-vibeframe > .page-image:not(.is-fullscreen),
+.image-vibeframe > .iod-image:not(.is-fullscreen),
+.image-vibeframe > .iod-video,
+.song-vibeframe > .song__preview-image:not(.is-fullscreen),
+.vcard-portal-motion-layer > .iod-image:not(.is-fullscreen),
+.vcard-portal-motion-layer > .song__preview-image:not(.is-fullscreen) {
+  margin: 0;
+  box-shadow: none;
+  position: relative;
+  z-index: 1;
+}
+
+.image-vibeframe > img.vcard-frame-overlay,
+.song-vibeframe > img.vcard-frame-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  object-fit: fill;
+  pointer-events: none;
+  visibility: hidden;
+  filter: url("#vc-text-tint") !important;
+  animation: none !important;
+}
+
+.iod-frame > img.vcard-frame-overlay {
+  filter: url("#vc-emoji-tint") !important;
+}
+
+:root[data-palette-ready="on"] .vcard-frame-overlay {
+  visibility: visible;
+}
+
+.image-vibeframe > .vcard-portal-motion-layer,
+.song-vibeframe > .vcard-portal-motion-layer {
+  /* The base image stays in normal flow and establishes the portal height.
+     Cassette, hands, title and action are absolute layers inside this box. */
+  float: none;
+  display: block;
+  position: relative;
+  width: 100%;
+  max-width: none;
+  overflow: hidden;
+  line-height: 0;
+  isolation: isolate;
+  transform: translateZ(0);
+}
+
+.image-vibeframe > .vcard-portal-motion-layer.is-pair-pending,
+.song-vibeframe > .vcard-portal-motion-layer.is-pair-pending {
+  visibility: hidden;
+}
+
+.vcard-portal-motion-layer > .vcard-portal-mask-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: none;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  pointer-events: none;
+  mix-blend-mode: normal;
+  filter: none;
+  backface-visibility: hidden;
+}
+
+/* A prepared next still frame is placed under this snapshot.  Fading the
+   snapshot out avoids a bare image or a white frame while portal p/m pairs
+   change. */
+.vcard-portal-motion-layer > .vcard-portal-crossfade-previous {
+  position: absolute;
+  /* Above the outgoing photo/canvas, but below the live hands/cassette. */
+  z-index: 2;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  opacity: 1;
+  pointer-events: none;
+  transition: opacity var(--vc-portal-crossfade-duration, var(--vc-magictime, 3s)) ease-in-out;
+}
+
+.vcard-portal-motion-layer > .vcard-portal-crossfade-previous.is-fading-out {
+  opacity: 0;
+}
+
+:root[data-vis-bri="0"] .vcard-portal-crossfade-previous,
+:root[data-vis-bri="0"] .song-portal-video {
+  transition-duration: 0s;
+}
+
+.vcard-portal-crossfade-previous > img,
+.vcard-portal-crossfade-previous > canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  pointer-events: none;
+}
+
+.vcard-portal-crossfade-previous > img {
+  object-fit: fill;
+}
+
+.vcard-portal-crossfade-previous > canvas {
+  z-index: 2;
+}
+
+:root[data-palette-ready="on"]
+  .vcard-portal-motion-layer > .vcard-portal-mask-overlay.is-ready {
+  display: block;
+}
+
+:root[data-accent="off"][data-palette-ready="on"]
+  .vcard-portal-motion-layer > .vcard-portal-mask-overlay.is-ready,
+:root[data-color-preset="mono"][data-palette-ready="on"]
+  .vcard-portal-motion-layer > .vcard-portal-mask-overlay.is-ready {
+  display: none;
+}
+
+:root[data-color-preset="newspaper"]
+  .vcard-portal-motion-layer > .vcard-portal-mask-overlay {
+  display: none !important;
+}
+
+img:is(
+  .page-image,
+  .iod-image,
+  .song__preview-image,
+  .list-image,
+  [image-color]
+) {
+  border: 0 !important;
+}
+
+.image-vibeframe > .page-image,
+.image-vibeframe > .iod-image,
+.image-vibeframe > .iod-video,
+.image-vibeframe > .vcard-portal-motion-layer > .iod-image {
+  margin-inline: auto;
+}
+
+.image-vibeframe > .song__preview-image,
+.song-vibeframe > .song__preview-image,
+.vcard-portal-motion-layer > .song__preview-image {
+  width: 100%;
+  max-width: none;
+}
+
+.song-vibeframe,
+.song-portal-stage {
+  position: sticky;
+  top: var(--song-sticky-audio-height, 0px);
+  z-index: 10;
+}
+
+.song-vibeframe:not(.shadow-off):not(.has-fullscreen-image) {
+  box-shadow: var(--frame-shadow-large);
+}
+
+.song-vibeframe:not(.has-fullscreen-image)::after {
+  content: "";
+  position: absolute;
+  z-index: 4;
+  inset: 0;
+  border: 2px solid var(--vc-muted);
+  pointer-events: none;
+}
+
+.song-portal-stage {
+  float: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  isolation: isolate;
+  box-sizing: border-box;
+  width: calc(
+    100% + var(--list-inline-padding) + var(--list-inline-padding)
+  );
+  max-width: none;
+  margin-inline: calc(-1 * var(--list-inline-padding));
+  padding: 0;
+  background: black;
+  border: var(--link-line-width) solid var(--ui-line-color);
+  top: calc(
+    var(--song-sticky-audio-height, 0px) - var(--link-line-width)
+  );
+  box-shadow: none;
+  line-height: 0;
+}
+
+.song-portal-stage:has(> .song-vibeframe.block-small) {
+  width: var(--portal-small-width);
+  margin-inline: auto;
+}
+
+.song-portal-stage:has(> .song-vibeframe.block-full) {
+  width: calc(min(100vw, 1200px) - 10px);
+  margin-inline: calc(50% - min(50vw, 600px) + 5px);
+}
+
+.song-portal-stage > .song-vibeframe {
+  position: relative;
+  top: auto;
+  z-index: 1;
+}
+
+.song-portal-stage:has(> .song-vibeframe[hidden]) {
+  display: none;
+}
+
+.song-vibeframe.block-small {
+  width: var(--portal-small-width);
+  max-width: 100%;
+}
+
+.song-vibeframe.block-mid {
+  width: var(--portal-mid-width);
+  max-width: 100%;
+}
+
+.song-vibeframe.block-full {
+  width: 100%;
+  max-width: 100%;
+}
+
+@media (orientation: portrait) {
+  .song-vibeframe:is(.block-small, .block-mid) {
+    width: 100%;
+    max-width: 100%;
+    margin-inline: 0;
+  }
+}
+
+.song-vibeframe > .song__preview-image,
+.vcard-portal-motion-layer > .song__preview-image {
+  top: auto;
+  align-self: auto;
+}
+
+/* The song portal keeps its photo layer in place and fades one reusable
+   transmission video over it. The layer is absolutely positioned, so neither
+   the cassette nor an overlay insert can affect portal geometry. */
+.song-portal-video {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  object-fit: cover;
+  pointer-events: none;
+  transition: opacity var(--vc-magictime, 3s) ease-in-out;
+  filter: grayscale(1) url("#vc-text-tint");
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.song-portal-video.is-visible {
+  opacity: 1;
+}
+
+/* A seek restores the exact recorded PortalTV frame without replaying the
+   entrance animation from zero.  JavaScript supplies the matching opacity. */
+.song-vibeframe[data-timeline-sync="on"] .song-portal-video {
+  transition-duration: 0s;
+}
+
+.vcard-portal-motion-layer > .song__preview-image {
+  transition: opacity var(--vc-magictime, 3s) ease-in-out;
+}
+
+.song-vibeframe:is(
+  [data-transmission="start"],
+  [data-transmission="play"]
+) .vcard-portal-motion-layer > .song__preview-image {
+  opacity: 0;
+}
+
+.song-portal-video[data-portal-kind="tape"] {
+  object-fit: fill;
+}
+
+.song-portal-video[data-portal-overlay="on"] {
+  object-fit: fill;
+  transition-duration: var(--vc-magictime, 3s);
+}
+
+/* A cassette entirely covers the portal, so its next still can be switched
+   directly underneath. Hands stay fully opaque above the portal image. */
+.song-portal-video[data-portal-kind="tape"][data-portal-overlay="on"].is-visible {
+  opacity: 1;
+}
+
+.song-portal-video[data-portal-kind="hands"][data-portal-overlay="on"].is-visible {
+  opacity: 0.99;
+}
+
+/* A pure-black bed leaves the portal intact; lift the dark hand footage
+   before screen blending so its gestures remain readable. */
+.song-portal-video[data-portal-kind="hands"] {
+  mix-blend-mode: screen;
+  filter: grayscale(1) brightness(3) contrast(1.12) url("#vc-text-tint");
+}
+
+.song-portal-controls {
+  position: absolute;
+  z-index: 4;
+  inset: 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  box-sizing: border-box;
+  padding: 0;
+  pointer-events: none;
+}
+
+.song-portal-title {
+  display: grid;
+  flex: none;
+  width: 100%;
+  place-items: center;
+  color: var(--vc-acc);
+  font-weight: 700;
+  line-height: 0.94;
+  text-align: center;
+  text-wrap: balance;
+  opacity: 0;
+  text-shadow: 0 0 4px black, 0 0 9px black !important;
+  transition: opacity var(--vc-magictime, 3s) ease-in-out;
+}
+
+.song-portal-title__text {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.song-portal-title.is-visible {
+  opacity: 1;
+}
+
+.song-portal-action {
+  position: relative;
+  display: none;
+  flex: none;
+  width: 64px;
+  height: 48px;
+  margin: 0;
+  padding: 0;
+  border: 2px solid black;
+  border-radius: 8px;
+  transform: none;
+  background: var(--vc-page);
+  color: var(--vc-win);
+  box-shadow: 2px 2px 0 black, 0 0 4px black;
+  pointer-events: none;
+}
+
+.song-portal-action.is-visible {
+  display: grid;
+  place-items: center;
+}
+
+.song-portal-action[data-action="resume"] {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.song-portal-action__icon {
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 9px solid transparent;
+  border-bottom: 9px solid transparent;
+  border-left: 14.4px solid currentColor;
+  margin-left: 2.4px;
+  filter: drop-shadow(1px 1px 0 black);
+}
+
+.song-portal-action[data-action="resume"] .song-portal-action__icon {
+  width: 14.4px;
+  height: 17.2px;
+  margin-left: 0;
+  border: 0;
+  background: linear-gradient(
+    to right,
+    currentColor 0 32%,
+    transparent 32% 68%,
+    currentColor 68% 100%
+  );
+}
+
+.song-vibeframe:is(
+  [data-transmission="start"],
+  [data-transmission="play"],
+  [data-transmission="pause"],
+  [data-transmission="photo"],
+  [data-transmission="overlay"]
+) > .vcard-portal-motion-layer,
+.song-vibeframe:is(
+  [data-transmission="start"],
+  [data-transmission="play"],
+  [data-transmission="pause"],
+  [data-transmission="photo"],
+  [data-transmission="overlay"]
+) > .vcard-portal-motion-layer * {
+  cursor: pointer;
+}
+
+.song-vibeframe[data-transmission="finish"] > .vcard-portal-motion-layer,
+.song-vibeframe[data-transmission="finish"] > .vcard-portal-motion-layer * {
+  cursor: default;
+}
+
+:root[data-color-preset="newspaper"] .song-portal-video {
+  filter: grayscale(1);
+}
+
+.song-vibeframe.has-fullscreen-image .song-portal-video {
+  opacity: 0;
+}
+
+/* Fullscreen always shows the portal photo.  During PortalTV start/play the
+   photo is normally hidden behind the cassette; hiding that cassette for a
+   fullscreen image must not leave the viewport black. */
+.song-vibeframe.has-fullscreen-image
+  > .vcard-portal-motion-layer
+  > .song__preview-image.is-fullscreen {
+  opacity: 1 !important;
+  transition: none;
+}
+
+/* A transformed motion layer becomes the containing block for a fixed child.
+   Reset it while the photo is fullscreen so the image is truly viewport-sized,
+   rather than pinned to the former portal rectangle. */
+.song-portal-stage:has(> .song-vibeframe.has-fullscreen-image) {
+  z-index: 1000;
+}
+
+.song-portal-stage > .song-vibeframe.has-fullscreen-image {
+  z-index: 1000;
+}
+
+.song-vibeframe.has-fullscreen-image > .vcard-portal-motion-layer {
+  transform: none !important;
+  isolation: auto;
+}
+
+.slideshow-crossfade-layer {
+  z-index: 1100;
+  max-width: none !important;
+  margin: 0 !important;
+  pointer-events: none;
+  opacity: 1;
+  transition:
+    opacity var(--crossfade-duration, 0.4s) ease-in-out;
+}
+
+.slideshow-crossfade-layer.is-local {
+  position: absolute !important;
+}
+
+.slideshow-crossfade-layer.is-fixed {
+  position: fixed !important;
+}
+
+.slideshow-crossfade-layer.is-leaving {
+  opacity: var(--vc-track-glow-low-opacity, 0.12);
+}
+
+.image-vibeframe.frame-breathe:not(.has-fullscreen-image)
+  > img:not(.is-fullscreen):not(.vcard-frame-overlay),
+.image-vibeframe.frame-breathe:not(.has-fullscreen-image)
+  > .vcard-portal-motion-layer {
+  transform-origin: center;
+  will-change: transform;
+  animation:
+    vcard-image-breathe 8s ease-in-out infinite alternate;
+}
+
+/* Wallpaper is deliberately a still background: its static portal image must
+   not float.  Dynamic page backgrounds retain the frame movement. */
+:root[data-background-mode="wallpaper"]
+  .image-vibeframe.frame-breathe:not(.has-fullscreen-image)
+  > img:not(.is-fullscreen):not(.vcard-frame-overlay),
+:root[data-background-mode="wallpaper"]
+  .image-vibeframe.frame-breathe:not(.has-fullscreen-image)
+  > .vcard-portal-motion-layer {
+  animation: none;
+}
+
+/* The portal float is a property of the page background, not of a PortalTV
+   phase.  With a dynamic background the complete portal moves as one frame;
+   wallpaper keeps every phase perfectly still. */
+.song-vibeframe.frame-breathe:not(.has-fullscreen-image)
+  > .vcard-portal-motion-layer {
+  transform-origin: center;
+  will-change: transform;
+  animation:
+    vcard-image-breathe 8s ease-in-out infinite alternate;
+  animation-play-state: paused;
+}
+
+:root:not([data-background-mode="wallpaper"])
+  .song-vibeframe.frame-breathe:not(.has-fullscreen-image)
+  > .vcard-portal-motion-layer {
+  animation-play-state: running;
+}
+
+@keyframes vcard-image-breathe {
+  from { transform: scale(1.03) translate(-1%, -0.7%); }
+  to { transform: scale(1.08) translate(1%, 0.7%); }
+}
+
+/* ===== PLAYER ===== */
+
+.song__audio {
+  display: block;
+  margin: 0 auto;
+}
+
+.vcard-player-dock {
+  --vc-readable-outline: black;
+  --vc-readable-outline-inverse: var(--vc-text);
+  -webkit-text-stroke: var(--vc-readable-stroke-width, 0px) var(--vc-readable-outline, black);
+  paint-order: stroke fill;
+  text-shadow: none;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  align-self: center;
+  container: vcard-player / inline-size;
+  width: var(--block-mid-width);
+  max-width: 100%;
+  min-width: 0;
+  background: black;
+}
+
+.vcard-player-dock.has-player {
+  --vc-player-color: var(--vc-text);
+  border: var(--link-line-width) solid var(--vc-text);
+}
+
+@media (orientation: landscape) and (max-width: 900px) {
+  .vcard-player-dock {
+    width: 100%;
+  }
+}
+
+.vcard-player-topline {
+  display: none;
+  gap: 3px;
+  justify-content: flex-start;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  min-height: 28px;
+  padding: 0 3px 0 6px;
+  color: var(--vc-player-color);
+  background: black;
+}
+
+.vcard-player-dock.has-player .vcard-player-topline {
+  display: flex;
+}
+
+.vcard-player-topline .plyr__control,
+.vcard-player-secondline .plyr__control {
+  box-sizing: border-box;
+  width: 27px;
+  height: 27px;
+  padding: 4px;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+}
+
+.vcard-player-topline .plyr__control:focus-visible,
+.vcard-player-secondline .plyr__control:focus-visible {
+  color: var(--vc-win);
+  background: var(--vc-text);
+  outline: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .vcard-player-topline .plyr__control:hover,
+  .vcard-player-secondline .plyr__control:hover {
+    color: var(--vc-win);
+    background: var(--vc-text);
+    outline: 0;
+  }
+}
+
+.vcard-player-topline .plyr__control svg,
+.vcard-player-secondline .plyr__control svg {
+  display: block;
+  width: 19px;
+  height: 19px;
+  fill: currentColor;
+}
+
+.vcard-player-button-group,
+.vcard-player-background-cluster,
+.vcard-player-secondline {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+/* Button groups must not shrink below their controls: otherwise their buttons
+   escape into the title when the player is narrow. */
+.vcard-player-button-group {
+  flex: 0 0 auto;
+}
+
+.vcard-player-secondline {
+  display: none;
+}
+
+:is(.vcard-player-topline, .vcard-player-secondline) .vcard-player-preset.is-active,
+:is(.vcard-player-topline, .vcard-player-secondline) .vcard-player-preset[aria-pressed="true"],
+:is(.vcard-player-topline, .vcard-player-secondline) .vcard-player-background.is-active,
+:is(.vcard-player-topline, .vcard-player-secondline) .vcard-player-background[aria-pressed="true"] {
+  color: var(--vc-win);
+  background: var(--vc-text);
+  -webkit-text-stroke-color: var(--vc-readable-outline-inverse, var(--vc-text));
+}
+
+:root[data-color-scheme="white"]
+  :is(.vcard-player-topline, .vcard-player-secondline) .vcard-player-background.is-active,
+:root[data-color-scheme="white"]
+  :is(.vcard-player-topline, .vcard-player-secondline) .vcard-player-background[aria-pressed="true"] {
+  color: var(--vc-text);
+  background: var(--vc-win);
+  -webkit-text-stroke-color: var(--vc-readable-outline, black);
+}
+
+.vcard-player-topline .vcard-player-settings {
+  flex: 0 0 auto;
+}
+
+.vcard-player-brightness-level {
+  display: inline-flex !important;
+  flex: 0 0 20px;
+  align-items: center;
+  justify-content: center;
+  width: 20px !important;
+  min-width: 20px !important;
+  height: 20px !important;
+  padding: 0 !important;
+  border: 0;
+  border-radius: 0 !important;
+  color: var(--vc-player-color) !important;
+  background: transparent !important;
+  font: inherit;
+  line-height: 1;
+  text-shadow: none;
+  -webkit-text-fill-color: currentColor;
+  -webkit-text-stroke: 0 transparent;
+}
+
+.vcard-player-brightness-level:is(.is-active, [aria-pressed="true"]) {
+  color: var(--vc-win) !important;
+  background: var(--vc-text) !important;
+  -webkit-text-fill-color: var(--vc-win) !important;
+}
+
+.vcard-player-brightness-row {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 1px;
+  margin-inline-start: 2px;
+  position: relative;
+  z-index: 2;
+  pointer-events: auto;
+}
+
+.vcard-player-brightness-row .vcard-player-brightness-level {
+  pointer-events: auto;
+}
+
+.vcard-player-dock.is-audio-unavailable
+  :is(
+    [data-plyr="play"],
+    [data-plyr="seek"],
+    [data-plyr="mute"],
+    [data-plyr="volume"]
+  ) {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.vcard-player-title {
+  box-sizing: border-box;
+  position: static;
+  width: auto;
+  min-width: 0;
+  margin: 0;
+  padding-inline: 6px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  flex: 1 1 auto;
+  color: black;
+  background: var(--vc-acc);
+  border: 0;
+  font-size: inherit;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  text-overflow: clip;
+  white-space: nowrap;
+  scrollbar-width: none;
+  cursor: pointer;
+  pointer-events: auto;
+  -webkit-text-fill-color: black;
+  -webkit-text-stroke: var(--vc-readable-stroke-width, 0px) var(--vc-acc);
+  paint-order: stroke fill;
+  text-shadow: none;
+}
+
+.vcard-player-title-track {
+  display: inline-flex;
+  min-width: max-content;
+  margin-inline: auto;
+  will-change: transform;
+}
+
+.vcard-player-title.is-marquee .vcard-player-title-track {
+  margin-inline: 0;
+  animation: vcard-player-marquee var(--vc-player-marquee-duration, 18s) linear infinite;
+}
+
+.vcard-player-title-text {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.vcard-player-title.is-marquee .vcard-player-title-text {
+  box-sizing: content-box;
+  padding-inline-end: 1ch;
+}
+
+@keyframes vcard-player-marquee {
+  to {
+    transform: translateX(calc(var(--vc-player-marquee-distance, 50%) * -1));
+  }
+}
+
+.vcard-player-title:focus-visible {
+  outline: var(--ui-line-width) solid var(--ui-line-color);
+  outline-offset: calc(-1 * var(--ui-line-width));
+}
+
+.vcard-player-title::-webkit-scrollbar {
+  display: none;
+}
+
+@media (orientation: portrait) {
+  .vcard-player-dock {
+    width: 100%;
+  }
+
+  .vcard-player-topline {
+    padding-inline: 3px;
+  }
+
+  .vcard-player-title {
+    min-height: 27px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .vcard-player-secondline {
+    display: flex;
+    width: 100%;
+    min-height: 25px;
+    justify-content: center;
+    color: var(--vc-player-color);
+    background: black;
+  }
+
+  .vcard-player-topline .plyr__control,
+  .vcard-player-secondline .plyr__control {
+    width: 25px;
+  }
+
+  .vcard-player-portal-group .vcard-portal-size:not(
+    [data-portal-size="off"],
+    [data-portal-size="mid"]
+  ) {
+    display: none !important;
+  }
+
+  .song-portal-stage:has(> .song-vibeframe.block-small) {
+    width: calc(
+      100% + var(--list-inline-padding) + var(--list-inline-padding)
+    );
+    margin-inline: calc(-1 * var(--list-inline-padding));
+  }
+}
+
+.vcard-player-dock .plyr,
+.vcard-player-dock .plyr__controls {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  border: 0 !important;
+  outline: 0 !important;
+}
+
+.vcard-player-dock .plyr__tooltip {
+  display: none !important;
+}
+
+/* ===== SETTINGS ===== */
+
+.vcard-about-settings {
+  position: relative;
+  display: inline-block;
+}
+
+[ids="about"] {
+  margin-bottom: calc(var(--v-gap) * 2);
+}
+
+.vcard-settings-dialog[hidden] {
+  display: none !important;
+}
+
+html {
+  scrollbar-gutter: stable;
+}
+
+html.vcard-settings-dialog-open {
+  overflow: hidden;
+}
+
+.vcard-settings-dialog {
+  position: fixed;
+  z-index: 1200;
+  inset: var(--vcard-settings-top, 0px) 0 0;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  padding: 0 var(--page-inline-padding) var(--page-inline-padding);
+  color: var(--vc-text);
+  background: color-mix(in srgb, var(--vc-win) 78%, transparent);
+  text-align: left;
+  -webkit-text-stroke: var(--vc-readable-stroke-width, 0px) var(--vc-readable-outline, black);
+  paint-order: stroke fill;
+  text-shadow: none;
+  pointer-events: none;
+}
+
+.vcard-settings-dialog :is(button, a, input, select, textarea) {
+  font-family: inherit;
+}
+
+.vcard-settings-dialog__panel {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: var(--vcard-settings-width, var(--block-mid-width));
+  max-width: 100%;
+  height: 100%;
+  max-height: none;
+  overflow: hidden;
+  border: var(--link-line-width) solid var(--vc-text);
+  color: var(--vc-text);
+  background: var(--vc-win);
+  box-shadow: 0 6px 24px color-mix(in srgb, black 55%, transparent);
+  pointer-events: auto;
+}
+
+.vcard-settings-dialog__header {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  flex: none;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  padding: 6px 12px;
+  border-bottom: var(--ui-line-width) solid var(--ui-line-color);
+  color: var(--vc-win);
+  background: var(--vc-settings-color);
+  text-align: left;
+  -webkit-text-stroke-color: var(--vc-readable-outline-inverse, var(--vc-text));
+}
+
+:root[data-color-preset="newspaper"] .vcard-settings-dialog__header {
+  -webkit-text-stroke-color: black;
+}
+
+.vcard-settings-dialog__title {
+  margin: 0;
+  padding: 0;
+  font-size: calc(var(--font-size) * 1.4);
+  line-height: 1;
+  overflow-wrap: anywhere;
+}
+
+.vcard-settings-dialog__settings-title {
+  align-self: center;
+  justify-self: stretch;
+  display: block;
+  box-sizing: border-box;
+  min-width: 0;
+  width: 100%;
+  line-height: 1.0;
+  max-height: 44px;
+  white-space: normal;
+  text-align: left;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+}
+
+.vcard-settings-dialog__header .vcard-settings-dialog__command {
+  box-sizing: border-box;
+  height: 28px;
+  min-height: 28px;
+  padding: 3px 7px;
+  border-color: var(--vc-win);
+  color: var(--vc-win);
+  background: transparent;
+}
+
+.vcard-settings-dialog__header .vcard-settings-dialog__command:is(:hover, :focus-visible) {
+  color: var(--vc-settings-color);
+  background: var(--vc-win);
+}
+
+.vcard-settings-dialog__settings-title[hidden] {
+  display: none;
+}
+
+.vcard-settings-dialog__content {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  padding: 0;
+  line-height: 1;
+  overflow-wrap: anywhere;
+  padding: 10px;
+}
+
+.vcard-settings-dialog__content > :first-child {
+  margin-top: 0;
+}
+
+.vcard-settings-dialog__content > :last-child {
+  margin-bottom: 0;
+}
+
+.vcard-settings-dialog__content ul {
+  margin-block: 5px;
+  padding-left: 5px;
+}
+
+.vcard-settings-dialog__content li + li {
+  margin-top: 5px;
+}
+
+.vcard-settings-dialog__content a[sd-opt],
+.vcard-settings-dialog__content a[dd-preset],
+.vcard-settings-dialog__content a[dd-action],
+.vcard-settings-dialog__content a[data-dialog-download] {
+  display: inline-block;
+  padding-inline: 3px;
+  color: var(--vc-muted);
+  background-color: transparent;
+  text-decoration: none;
+}
+
+.vcard-settings-dialog__content a[sd-opt]:is(:hover, :focus-visible),
+.vcard-settings-dialog__content a[dd-preset]:is(:hover, :focus-visible),
+.vcard-settings-dialog__content a[dd-action]:is(:hover, :focus-visible),
+.vcard-settings-dialog__content a[data-dialog-download]:is(:hover, :focus-visible) {
+  color: var(--vc-win);
+  background-color: var(--vc-settings-color);
+  outline: none;
+}
+
+.vcard-settings-dialog__content a[sd-opt]:is(:active, .is-selected),
+.vcard-settings-dialog__content a[dd-preset]:is(:active, .is-selected),
+.vcard-settings-dialog__content a[dd-action]:active,
+.vcard-settings-dialog__content a[data-dialog-download]:active {
+  color: var(--vc-win);
+  background-color: transparent;
+  background-image: linear-gradient(
+    var(--vc-settings-color),
+    var(--vc-settings-color)
+  );
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% calc(100% - 4px);
+  text-decoration: none;
+}
+
+.vcard-settings-dialog__content a[sd-opt]:is(:hover, :focus-visible),
+.vcard-settings-dialog__content a[dd-preset]:is(:hover, :focus-visible),
+.vcard-settings-dialog__content a[dd-action]:is(:hover, :focus-visible),
+.vcard-settings-dialog__content a[data-dialog-download]:is(:hover, :focus-visible) {
+  text-decoration: none;
+}
+
+.vcard-settings-dialog__content a[sd-opt].is-disabled {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+@keyframes vcard-media-cache-preload-run {
+  from { transform: translateX(-0.35em); }
+  to { transform: translateX(0.35em); }
+}
+
+.vcard-settings-dialog__content a[data-media-cache-preload].is-loading {
+  opacity: 1;
+  color: var(--vc-settings-color);
+  background-color: transparent;
+  background-image: none;
+}
+
+.vcard-settings-dialog__content a[data-media-cache-preload].is-loading::after {
+  content: " ▰▰▰";
+  display: inline-block;
+  animation: vcard-media-cache-preload-run 0.65s steps(3, end) infinite alternate;
+}
+
+.vcard-settings-dialog__content a[dd-preset] {
+  cursor: pointer;
+}
+
+.vcard-settings-dialog__header .vcard-settings-dialog__command.is-primary,
+.vcard-settings-dialog__header .vcard-settings-dialog__command.is-primary:is(:hover, :focus-visible) {
+  border-color: var(--vc-acc);
+  color: var(--vc-win);
+  background: var(--vc-acc);
+}
+
+.vcard-settings-dialog__command {
+  min-height: 34px;
+  border: var(--ui-line-width) solid var(--ui-line-color);
+  border-radius: 0;
+  padding: 5px 5px;
+  color: var(--vc-settings-color);
+  background: var(--vc-win);
+  box-shadow: none;
+  cursor: pointer;
+  font: inherit;
+  line-height: 1;
+  text-shadow: none;
+}
+
+.vcard-settings-dialog__command:is(:hover, :focus-visible),
+.vcard-settings-dialog__command.is-primary {
+  color: var(--vc-win);
+  background: var(--vc-settings-color);
+}
+
+.vcard-footer-controls {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+@media (orientation: landscape) {
+  .vcard-settings-dialog__header {
+    align-items: center;
+  }
+
+  .vcard-settings {
+    overflow-x: auto;
+    white-space: pre-wrap;
+  }
+}
+
+@media (orientation: portrait), (max-width: 700px) {
+  .vcard-settings-dialog {
+    padding: 0 var(--page-inline-padding);
+  }
+
+  .vcard-settings-dialog__header {
+    gap: 7px;
+    padding: 8px 10px;
+  }
+}
+
+@media (orientation: portrait) {
+  .vcard-settings-dialog {
+    align-items: stretch;
+    padding: 0 var(--page-inline-padding);
+  }
+
+  .vcard-settings-dialog__panel {
+    width: var(--vcard-settings-width, 100%);
+    max-width: 100%;
+    height: 100%;
+    max-height: none;
+  }
+
+  .vcard-settings {
+    max-width: 100%;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+}
+
+.plyr__filename {
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: min(24ch, 24vw);
+  overflow: hidden;
+  font: inherit;
+  line-height: 1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (orientation: portrait) {
+  .plyr__filename {
+    display: none;
+  }
+}
+
+/* ===== VISUALIZATION ===== */
+
+.audio-spectrum {
+  position: fixed;
+  z-index: -2;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0;
+  pointer-events: none;
+  /* Full-screen blend modes force an extra compositing pass every frame. */
+  mix-blend-mode: normal;
+  filter: brightness(var(--vc-visualization-brightness, 1));
+  transition: opacity 180ms ease;
+}
+
+.audio-spectrum.is-enabled {
+  opacity: var(--vc-visualization-opacity, 0%);
+}
+
+:root[data-color-scheme="white"] .audio-spectrum.is-enabled {
+  mix-blend-mode: normal;
+}
+
+/* ===== PLYR OVERRIDES ===== */
+
+.plyr {
+  width: 100%;
+  font-family: inherit;
+  --plyr-control-spacing: 3px;
+  --plyr-control-icon-size: 13px;
+  --plyr-range-thumb-height: 9px;
+  --plyr-range-track-height: 3px;
+  --plyr-range-thumb-active-shadow-width: 2px;
+  --plyr-font-size-time: 10px;
+  --plyr-player-color: var(--vc-player-color);
+  --plyr-active-background: color-mix(in srgb, var(--vc-player-color) 72%, white);
+  --plyr-selected-background: color-mix(in srgb, var(--vc-player-color) 32%, black);
+  --plyr-color-main: var(--vc-player-color);
+  --plyr-audio-controls-background: var(--vc-win);
+  --plyr-audio-control-color: var(--vc-player-color);
+  --plyr-audio-control-background-hover: var(--vc-player-color);
+  --plyr-audio-control-color-hover: var(--vc-win);
+  --plyr-audio-range-track-background: color-mix(in srgb, var(--vc-player-color) 35%, transparent);
+  --plyr-audio-progress-buffered-background: color-mix(in srgb, var(--vc-player-color) 20%, transparent);
+  --plyr-range-fill-background: var(--vc-player-color);
+  --plyr-range-thumb-background: var(--vc-player-color);
+  --plyr-menu-background: var(--vc-win);
+  --plyr-menu-color: var(--vc-player-color);
+}
+
+/* All available player controls use the page's bright colour.  The song title
+   keeps its own bright accent surface above. */
+.vcard-player-dock .plyr {
+  --plyr-player-color: var(--vc-player-color);
+  --plyr-color-main: var(--vc-player-color);
+  --plyr-audio-control-color: var(--vc-player-color);
+  --plyr-audio-control-color-hover: var(--vc-player-color);
+  --plyr-audio-range-track-background: color-mix(in srgb, var(--vc-player-color) 45%, transparent);
+  --plyr-audio-progress-buffered-background: color-mix(in srgb, var(--vc-player-color) 22%, transparent);
+  --plyr-range-fill-background: var(--vc-player-color);
+  --plyr-range-thumb-background: var(--vc-player-color);
+  --plyr-menu-color: var(--vc-player-color);
+}
+
+:root[data-color-scheme="black"] .plyr {
+  --plyr-bright-color: var(--plyr-player-color);
+  --plyr-color-main: var(--plyr-bright-color);
+  --plyr-audio-control-color: var(--plyr-bright-color);
+  --plyr-audio-control-background-hover: transparent;
+  --plyr-audio-control-color-hover: var(--plyr-bright-color);
+  --plyr-audio-range-track-background: color-mix(in srgb, var(--plyr-bright-color) 82%, transparent);
+  --plyr-audio-progress-buffered-background: color-mix(in srgb, var(--plyr-bright-color) 55%, transparent);
+  --plyr-range-fill-background: var(--plyr-bright-color);
+  --plyr-range-thumb-background: var(--plyr-bright-color);
+  --plyr-menu-color: var(--plyr-bright-color);
+}
+
+:root[data-color-scheme="black"] .plyr--audio .plyr__controls,
+:root[data-color-scheme="black"] .plyr--audio .plyr__control,
+:root[data-color-scheme="black"] .plyr--audio .plyr__time,
+:root[data-color-scheme="black"] .plyr--audio input[type="range"] {
+  color: var(--plyr-bright-color) !important;
+}
+
+:root[data-color-scheme="black"] .plyr--audio .plyr__control,
+:root[data-color-scheme="black"] .plyr--audio .plyr__time {
+  filter: none;
+}
+
+:root[data-color-scheme="black"] .plyr--audio input[type="range"]::-webkit-slider-thumb {
+  background: var(--plyr-bright-color) !important;
+}
+
+:root[data-color-scheme="black"] .plyr--audio input[type="range"]::-moz-range-thumb {
+  background: var(--plyr-bright-color) !important;
+}
+
+.plyr[hidden] {
+  display: none !important;
+}
+
+.plyr--audio .plyr__controls {
+  min-height: 28px;
+  border: 0;
+  border-radius: 0;
+  padding: 0 7px 3px;
+  gap: 3px;
+  flex-wrap: nowrap;
+  align-content: center;
+  color: var(--vc-player-color) !important;
+  background: color-mix(
+    in srgb,
+    var(--plyr-player-color, var(--vc-text)) 24%,
+    white
+  ) !important;
+  box-shadow: none;
+  min-width: 0;
+  width: 100%;
+}
+
+.plyr--audio {
+  --plyr-control-spacing: 6px;
+  --plyr-control-icon-size: 20px;
+  --plyr-range-thumb-height: 12px;
+  --plyr-range-track-height: 5px;
+  --plyr-font-size-time: 13px;
+  --plyr-audio-control-color: var(--vc-player-color);
+  --plyr-audio-control-color-hover: var(--vc-player-color);
+  --plyr-audio-control-background-hover: color-mix(in srgb, white 28%, transparent);
+  --plyr-audio-range-track-background: color-mix(in srgb, var(--vc-player-color) 45%, transparent);
+  --plyr-audio-progress-buffered-background: color-mix(in srgb, var(--vc-player-color) 22%, transparent);
+  --plyr-range-fill-background: var(--vc-player-color);
+  --plyr-range-thumb-background: var(--vc-player-color);
+}
+
+.plyr--audio .plyr__control,
+.plyr--audio .plyr__time,
+.plyr--audio input[type="range"] {
+  color: var(--vc-player-color) !important;
+  filter: none !important;
+  text-shadow: none !important;
+  -webkit-text-fill-color: var(--vc-player-color);
+}
+
+.vcard-player-dock .plyr--audio .plyr__controls,
+.vcard-player-dock .plyr--audio .plyr__control:not(.is-active):not([aria-pressed="true"]),
+.vcard-player-dock .plyr--audio .plyr__time,
+.vcard-player-dock .plyr--audio input[type="range"] {
+  color: var(--vc-player-color) !important;
+  -webkit-text-fill-color: var(--vc-player-color);
+}
+
+.plyr--audio .plyr__controls .plyr__controls__item {
+  margin-left: 0;
+}
+
+.plyr--audio .plyr__controls > [data-plyr="play"] {
+  order: -1;
+}
+
+.plyr--audio .plyr__time {
+  white-space: nowrap;
+}
+
+.vcard-player-brightness-value {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  align-self: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  margin-inline-start: 2px;
+  color: var(--vc-player-color);
+  font: inherit;
+  line-height: 1;
+  text-align: center;
+  -webkit-text-stroke: 0 transparent;
+  text-shadow: none;
+}
+
+@media (orientation: portrait) {
+  .vcard-player-brightness-value {
+    display: none;
+  }
+
+  .vcard-player-brightness-row {
+    display: none;
+  }
+
+  .vcard-player-dock .plyr__volume {
+    display: flex !important;
+    min-width: 0;
+  }
+
+  .vcard-player-dock .plyr__volume input[type="range"] {
+    min-width: 44px;
+    max-width: 72px;
+  }
+}
+
+@media (orientation: landscape) {
+  .vcard-player-brightness-picker {
+    display: none;
+  }
+
+  .plyr--audio .plyr__progress__container {
+    flex: 1 1 36px;
+    min-width: 36px;
+  }
+}
+
+.vcard-portal-control {
+  display: inline-flex !important;
+  flex: 0 0 20px !important;
+  align-items: center;
+  justify-content: center;
+  width: 20px !important;
+  min-width: 20px !important;
+  height: 20px !important;
+  padding: 0 !important;
+  border: 0;
+  border-radius: 0 !important;
+  font: inherit;
+  line-height: 1;
+}
+
+.vcard-portal-control:focus-visible,
+.vcard-portal-size[aria-pressed="true"],
+.vcard-portal-size.is-active {
+  color: var(--vc-win) !important;
+  background: var(--vc-text) !important;
+  outline: 0;
+  -webkit-text-fill-color: var(--vc-win) !important;
+  -webkit-text-stroke-color: var(--vc-readable-outline-inverse, var(--vc-text));
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .vcard-portal-control:hover {
+    color: var(--vc-win) !important;
+    background: var(--vc-text) !important;
+    outline: 0;
+    -webkit-text-fill-color: var(--vc-win) !important;
+  }
+}
+
+.vcard-portal-control:disabled {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.vcard-font-scale {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 20px !important;
+  width: 20px !important;
+  min-width: 20px !important;
+  height: 20px !important;
+  padding: 0 !important;
+  border: 0;
+  border-radius: 0 !important;
+  line-height: 1;
+}
+
+.vcard-font-scale[data-vcard-font-scale="xs"] { font-size: 11px; }
+.vcard-font-scale[data-vcard-font-scale="s"] { font-size: 13px; }
+.vcard-font-scale[data-vcard-font-scale="m"] { font-size: 16px; }
+.vcard-font-scale[data-vcard-font-scale="l"] { font-size: 19px; }
+.vcard-font-scale[data-vcard-font-scale="xl"] { font-size: 22px; }
+
+.vcard-font-scale:is(.is-active, [aria-pressed="true"]) {
+  color: var(--vc-win) !important;
+  background: var(--vc-text) !important;
+  -webkit-text-fill-color: var(--vc-win) !important;
+}
+
+.plyr__visualization-controls {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  align-self: center;
+  flex: 0 0 auto;
+}
+
+.plyr__control--vc,
+.plyr__control--vis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  min-width: 32px;
+  height: 32px;
+  padding: 0 !important;
+  color: black !important;
+  background: transparent !important;
+  outline: var(--ui-line-width) solid transparent;
+  outline-offset: calc(-1 * var(--ui-line-width));
+  border-radius: 0;
+  box-shadow: none;
+  -webkit-text-fill-color: currentColor;
+  text-shadow: none;
+  filter: none !important;
+}
+
+.plyr__visualization-controls .plyr__control--vis {
+  min-width: 30px;
+  padding-inline: 4px !important;
+}
+
+.vcard-player-background:disabled {
+  cursor: not-allowed;
+  opacity: 0.28;
+  pointer-events: auto;
+}
+
+.plyr__control--brightness {
+  position: relative;
+}
+
+.plyr__control--brightness[data-brightness-level="2"]::after {
+  position: absolute;
+  inset: 4px;
+  border: var(--ui-line-width) solid var(--ui-line-color);
+  content: "";
+  pointer-events: none;
+}
+
+.plyr__pin-icon {
+  display: block;
+  width: 20px;
+  height: 20px;
+  background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 17v5'/%3E%3Cpath d='M5 17h14'/%3E%3Cpath d='M17 17v-5a5 5 0 0 0-10 0v5'/%3E%3Cpath d='M9 10V2h6v8'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 17v5'/%3E%3Cpath d='M5 17h14'/%3E%3Cpath d='M17 17v-5a5 5 0 0 0-10 0v5'/%3E%3Cpath d='M9 10V2h6v8'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.plyr__control--vc:hover,
+.plyr__control--vis:hover {
+  color: black !important;
+  background: color-mix(in srgb, white 28%, transparent) !important;
+  outline-color: transparent;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  -webkit-text-fill-color: black;
+}
+
+.plyr__control--vc[aria-pressed="true"],
+.plyr__control--vis[aria-pressed="true"] {
+  color: black !important;
+  background: transparent !important;
+  outline-color: transparent;
+  box-shadow: inset 0 0 0 var(--ui-line-width) var(--ui-line-color) !important;
+  text-shadow: none !important;
+  -webkit-text-fill-color: black;
+}
+
+:root[data-color-scheme="white"] .plyr--audio .plyr__controls {
+  color: var(--vc-player-color) !important;
+  background: black !important;
+  border: var(--ui-line-width) solid var(--ui-line-color);
+}
+
+:root[data-color-scheme="white"] .vcard-player-dock {
+  --vc-player-color: silver;
+}
+
+:root[data-color-scheme="white"] .vcard-player-title {
+  color: black;
+  -webkit-text-fill-color: black;
+}
+
+:root[data-color-preset="newspaper"] .vcard-player-title {
+  color: black;
+  background: var(--vc-player-color);
+  -webkit-text-fill-color: black;
+  -webkit-text-stroke-color: var(--vc-player-color);
+}
+
+:root[data-color-scheme="white"] .vcard-player-topline {
+  color: var(--vc-player-color);
+}
+
+:root[data-color-preset="newspaper"]
+  .vcard-player-topline
+  .vcard-player-preset[data-vcard-preset="newspaper"]:is(.is-active, [aria-pressed="true"]) {
+  color: black !important;
+  background: var(--vc-player-color) !important;
+  -webkit-text-fill-color: black;
+}
+
+:root[data-color-scheme="white"] .plyr--audio {
+  --plyr-player-color: var(--vc-player-color);
+  --plyr-color-main: var(--vc-player-color);
+  --plyr-audio-control-color: var(--vc-player-color);
+  --plyr-audio-control-color-hover: var(--vc-player-color);
+  --plyr-audio-range-track-background: color-mix(in srgb, var(--vc-player-color) 82%, transparent);
+  --plyr-audio-progress-buffered-background: color-mix(in srgb, var(--vc-player-color) 55%, transparent);
+  --plyr-range-fill-background: var(--vc-player-color);
+  --plyr-range-thumb-background: var(--vc-player-color);
+}
+
+:root[data-color-scheme="white"] .plyr--audio .plyr__control,
+:root[data-color-scheme="white"] .plyr--audio .plyr__time,
+:root[data-color-scheme="white"] .plyr--audio input[type="range"],
+:root[data-color-scheme="white"] .plyr__control--vc,
+:root[data-color-scheme="white"] .plyr__control--vis {
+  color: var(--vc-player-color) !important;
+  -webkit-text-fill-color: var(--vc-player-color);
+}
+
+:root[data-color-scheme="white"] .plyr--audio input[type="range"]::-webkit-slider-thumb {
+  background: var(--vc-player-color) !important;
+}
+
+:root[data-color-scheme="white"] .plyr--audio input[type="range"]::-moz-range-thumb {
+  background: var(--vc-player-color) !important;
+}
+
+:root[data-color-scheme="white"] .plyr--audio .vcard-portal-control:focus-visible,
+:root[data-color-scheme="white"] .plyr--audio .vcard-portal-size[aria-pressed="true"],
+:root[data-color-scheme="white"] .plyr--audio .vcard-portal-size.is-active {
+  color: var(--vc-win) !important;
+  background: var(--vc-text) !important;
+  -webkit-text-fill-color: var(--vc-win) !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :root[data-color-scheme="white"] .vcard-portal-control:hover {
+    color: var(--vc-win) !important;
+    background: var(--vc-text) !important;
+    -webkit-text-fill-color: var(--vc-win) !important;
+  }
+}
+
+/* BLACK scheme: black surface with semantic text/accent controls and active frames. */
+:root[data-color-scheme="black"] .plyr--audio .plyr__controls {
+  color: var(--plyr-bright-color) !important;
+  background: black !important;
+  border: var(--ui-line-width) solid var(--ui-line-color);
+}
+
+:root[data-color-scheme="black"] .vcard-player-topline {
+  color: var(--vc-player-color);
+}
+
+:root[data-color-scheme="black"] .plyr--audio .plyr__control,
+:root[data-color-scheme="black"] .plyr--audio .plyr__time,
+:root[data-color-scheme="black"] .plyr--audio input[type="range"],
+:root[data-color-scheme="black"] .plyr__control--vc,
+:root[data-color-scheme="black"] .plyr__control--vis {
+  color: var(--plyr-bright-color) !important;
+  -webkit-text-fill-color: var(--plyr-bright-color);
+}
+
+:root[data-color-scheme="black"] .plyr--audio .vcard-portal-control:focus-visible,
+:root[data-color-scheme="black"] .plyr--audio .vcard-portal-size[aria-pressed="true"],
+:root[data-color-scheme="black"] .plyr--audio .vcard-portal-size.is-active {
+  color: var(--vc-win) !important;
+  background: var(--vc-text) !important;
+  -webkit-text-fill-color: var(--vc-win) !important;
+}
+
+:root[data-color-scheme="black"] .plyr__control--vc:hover,
+:root[data-color-scheme="black"] .plyr__control--vis:hover {
+  color: var(--plyr-bright-color) !important;
+  background: transparent !important;
+  -webkit-text-fill-color: var(--plyr-bright-color);
+}
+
+:root[data-color-scheme="black"] .plyr__control--vc[aria-pressed="true"],
+:root[data-color-scheme="black"] .plyr__control--vis[aria-pressed="true"] {
+  color: var(--plyr-bright-color) !important;
+  outline-color: transparent;
+  box-shadow: inset 0 0 0 var(--ui-line-width) var(--ui-line-color) !important;
+  -webkit-text-fill-color: var(--plyr-bright-color);
+}
+
+/* Only disabled controls are dimmed; available player controls stay bright.
+   Active buttons and the title above keep their dedicated inversion rules. */
+.vcard-player-dock .plyr--audio .plyr__controls,
+.vcard-player-dock .plyr--audio .plyr__control:not(.vcard-player-brightness-level):not(.is-active):not([aria-pressed="true"]),
+.vcard-player-dock .plyr--audio .plyr__time,
+.vcard-player-dock .plyr--audio input[type="range"] {
+  color: var(--vc-player-color) !important;
+  -webkit-text-fill-color: var(--vc-player-color);
+}
+
+.vcard-player-dock .plyr--audio input[type="range"]::-webkit-slider-thumb {
+  background: var(--vc-player-color) !important;
+}
+
+.vcard-player-dock .plyr--audio input[type="range"]::-moz-range-thumb {
+  background: var(--vc-player-color) !important;
+}
+
+/* ===== SONG MEDIA AND TRACKING ===== */
+
+.song-media {
+  margin: 0.8rem auto;
+}
+
+.song__track-verse {
+  position: relative;
+  isolation: isolate;
+  display: inline-block;
+  width: 100%;
+  font-synthesis: weight;
+  cursor: pointer;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.song__track-verse.is-active {
+  color: var(--vc-track-active-color);
+  font-weight: var(--font-body-active-weight);
+  -webkit-text-stroke: var(--text-body-stroke);
+  text-shadow: var(--text-body-shadow);
+  filter: brightness(1.35);
+  text-decoration: none;
+}
+
+.song__track-verse.is-active::after {
+  content: none;
+  display: none;
+}

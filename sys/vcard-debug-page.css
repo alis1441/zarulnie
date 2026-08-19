@@ -1,0 +1,163 @@
+:root {
+  color-scheme: dark;
+  font-family: "Lucida Console", Consolas, monospace;
+  background: #050505;
+  color: #ddd;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #050505;
+}
+
+.vcard-cache-debug {
+  width: min(1400px, 100%);
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.vcard-cache-debug__header {
+  position: sticky;
+  z-index: 1;
+  top: 0;
+  padding: 12px 0;
+  background: #050505;
+}
+
+h1,
+p {
+  margin: 0 0 10px;
+}
+
+h1 {
+  color: #fff;
+  font-size: clamp(20px, 3vw, 30px);
+}
+
+a,
+button {
+  color: #8fe340;
+}
+
+button {
+  padding: 7px 10px;
+  border: 1px solid currentColor;
+  background: #111;
+  font: inherit;
+  cursor: pointer;
+}
+
+button:disabled {
+  color: #777;
+  cursor: not-allowed;
+}
+
+.vcard-cache-debug__build,
+.vcard-cache-debug__note,
+.vcard-cache-debug__status {
+  color: #aaa;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.vcard-cache-debug__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 8px;
+}
+
+.vcard-cache-debug__summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin: 10px 0 0;
+  font-size: 13px;
+}
+
+.vcard-cache-debug__summary div {
+  display: flex;
+  gap: 5px;
+}
+
+.vcard-cache-debug__summary dt {
+  color: #999;
+}
+
+.vcard-cache-debug__summary dd {
+  margin: 0;
+  color: #fff;
+}
+
+.vcard-cache-debug__table-wrap {
+  overflow: auto;
+  border: 1px solid #555;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+th,
+td {
+  padding: 7px 9px;
+  border-bottom: 1px solid #333;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  position: sticky;
+  top: 146px;
+  background: #181818;
+  color: #fff;
+  white-space: nowrap;
+}
+
+td:nth-child(3),
+td:nth-child(4),
+td:nth-child(5) {
+  white-space: nowrap;
+}
+
+.vcard-cache-debug__path {
+  overflow-wrap: anywhere;
+}
+
+.vcard-cache-debug__state--cached {
+  color: #8fe340;
+}
+
+.vcard-cache-debug__state--missing {
+  color: #ff7c72;
+}
+
+.vcard-cache-debug__state--unknown,
+.vcard-cache-debug__state--unchecked {
+  color: #e8ca65;
+}
+
+.vcard-cache-debug__state--lost {
+  color: #ff7c72;
+  font-weight: bold;
+}
+
+@media (max-width: 640px) {
+  .vcard-cache-debug {
+    padding: 8px;
+  }
+
+  th {
+    top: 176px;
+  }
+
+  table {
+    min-width: 700px;
+  }
+}

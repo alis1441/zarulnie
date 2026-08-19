@@ -1,0 +1,2 @@
+window.VCARD_MEDIA_LISTS ||= {};
+window.VCARD_MEDIA_LISTS[document.currentScript.src] = ["Fibrous paper.webp?v=d23940f295ed","Fine canvas.webp?v=cdf47f65c9d8","Fine paper.webp?v=76517cff1a88","Rosewood BW.webp?v=fbb0a780e1be","Rosewood.webp?v=6b5258408493&vc-color=1","Rough canvas.webp?v=64a682a41828","Rough laid paper.webp?v=25d088596f9e","Watercolor cold press.webp?v=f1ffbf21ec31","Watercolor paper.webp?v=d9fad794b7aa"];
